@@ -1,0 +1,108 @@
+PROMPT / PRD (Copy & Paste to AI)
+Role: You are a Senior Frontend Engineer and UI/UX Designer specializing in Single Page Applications (SPA). Objective: Create a standalone, single-file HTML web application called "Biochar Thailand 101" for a Cloudflare Workers deployment.
+
+1. Technical Constraints (Strict)
+Format: Single index.html file. All CSS must be in <style> or Tailwind classes. All JS must be in <script>.
+
+Framework: Vanilla JavaScript (No React/Vue).
+
+Styling: Tailwind CSS (Load via CDN: <script src="https://cdn.tailwindcss.com"></script>).
+
+Font: Use Google Fonts 'Kanit' for a modern Thai look.
+
+Responsiveness: Mobile-first design. Must look perfect on iPhone and Android screens.
+
+2. Design System
+Color Palette:
+
+Primary: Emerald Green (bg-emerald-600, text-emerald-700) - Represents Nature/Agriculture.
+
+Secondary: Charcoal Black (bg-gray-900) - Represents Biochar.
+
+Accent: Amber/Gold (text-amber-500) - Represents Income/Wealth.
+
+Style: Clean, card-based layout with soft shadows (shadow-lg, rounded-xl).
+
+3. Feature Specifications (The 4 Sections)
+Section 1: Hero & Concept (The Hook)
+Headline: "เปลี่ยนวัสดุเหลือใช้...ให้กลายเป็นรายได้" (Turn Waste into Wealth).
+
+Subhead: "Biochar: นวัตกรรมถ่านชีวภาพ แก้ PM2.5 พร้อมสร้างคาร์บอนเครดิตสู่ตลาดโลก"
+
+Visual: A modern 3-step timeline or cards showing:
+
+🌾 Biomass (Waste)
+
+🔥 Pyrolysis (No Oxygen Burning)
+
+💎 Biochar (Carbon Credit + Soil Health)
+
+Section 2: Biomass Calculator (The Value Prop)
+Title: "ลองคำนวณรายได้ของคุณ" (Estimate Your Value)
+
+UI Elements:
+
+Select Input: Material Type [แกลบ (Rice Husk), ซางข้าวโพด (Corn Cob), ไม้ไผ่ (Bamboo), กิ่งไม้ผล (Fruit Branch)].
+
+Number Input: Quantity (Tons). Default: 1.
+
+Button: "คำนวณผลลัพธ์ (Calculate)" - Make it big and clickable.
+
+Calculation Logic (JavaScript):
+
+Biochar Yield = Input * 0.30 (30%).
+
+Carbon Credit (CORC) = Biochar Yield * 2.8.
+
+Estimated Value (THB) = (Biochar Yield * 1000 * 5) + (Carbon Credit * 3000). (Assume 5 THB/kg for Biochar and 3000 THB/ton for Credit).
+
+Output Display: Show 3 distinct boxes with animations (count-up effect if possible):
+
+📦 Biochar: [X] Tons.
+
+🌍 CO2 Removed: [Y] Tons (CORC).
+
+💰 Potential Value: [Z] THB.
+
+Section 3: MRV Tracking Prototype (The Tech Flex)
+Title: "ระบบตรวจสอบย้อนกลับ (MRV System)"
+
+Context: "จำลองระบบบันทึกข้อมูลหน้างานเพื่อขอรับรองมาตรฐาน Puro.earth"
+
+UI Form:
+
+Display: Current Date/Time (Auto-filled).
+
+Input: Furnace Temp (°C) (e.g., 550).
+
+Action Button: "📍 เช็คอินจุดผลิต (Get GPS Location)" with a location icon.
+
+Functionality:
+
+On button click, use navigator.geolocation.getCurrentPosition.
+
+Show a "Loading..." spinner or text.
+
+On success, display a "Verified Badge" card:
+
+✅ Status: Verified Location.
+
+📍 Coords: Lat: XX.XXXX, Long: YY.YYYY.
+
+🔗 Blockchain Hash (Mockup): "0x8f...3a2b" (Just a random string to look cool).
+
+Section 4: Footer & Call to Action
+Text: "พร้อมเริ่มธุรกิจ Biochar หรือมีวัตถุดิบในมือ?"
+
+Primary Button: "เข้าร่วมกลุ่ม 'มาแลกต้นไม้กัน' (70k Members)" - Link to: https://www.facebook.com/groups/164322279023288
+
+Secondary Link: "Developed by Ronnayos (Ody)" - Link to: https://www.begins.homes
+
+4. Code Output Requirements
+Provide the Full HTML Code in one block.
+
+Ensure the JavaScript logic handles edge cases (e.g., negative numbers in calculator).
+
+Add comments in the code explaining the "MRV Logic" so I can explain it during an interview.
+
+PROMPT END

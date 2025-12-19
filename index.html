@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biochar Thailand 101 - เปลี่ยนวัสดุเหลือใช้ให้กลายเป็นรายได้</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts - Kanit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Kanit', sans-serif;
+        }
+        
+        .animate-count-up {
+            transition: all 0.3s ease;
+        }
+        
+        .loading-spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #10b981;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .hover-lift {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Hero Section -->
+    <section id="hero" class="min-h-screen bg-gradient-to-br from-emerald-600 to-emerald-800 text-white">
+        <div class="container mx-auto px-4 py-16">
+            <div class="text-center mb-16">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                    เปลี่ยนวัสดุเหลือใช้<br>
+                    <span class="text-amber-300">ให้กลายเป็นรายได้</span>
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 text-emerald-100">
+                    ลด PM2.5 และสร้างคาร์บอนเครดิตสู่ตลาดโลก
+                </p>
+            </div>
+            
+            <!-- 3-Step Timeline -->
+            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 hover-lift">
+                    <div class="text-center mb-4">
+                        <div class="text-4xl mb-2">🌾</div>
+                        <h3 class="text-xl font-semibold text-amber-200">ขั้นตอนที่ 1</h3>
+                    </div>
+                    <p class="text-center text-emerald-100">
+                        รวบรวมวัสดุเหลือใช้ทางการเกษตร เช่น แกลบ, ซังข้าวโพด, ไม้ไผ่
+                    </p>
+                </div>
+                
+                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 hover-lift">
+                    <div class="text-center mb-4">
+                        <div class="text-4xl mb-2">🔥</div>
+                        <h3 class="text-xl font-semibold text-amber-200">ขั้นตอนที่ 2</h3>
+                    </div>
+                    <p class="text-center text-emerald-100">
+                        เผาในเตาไพโรไลซิสที่อุณหภูมิ 400-700°C แปลงเป็นชีวาชาร์
+                    </p>
+                </div>
+                
+                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 hover-lift">
+                    <div class="text-center mb-4">
+                        <div class="text-4xl mb-2">💰</div>
+                        <h3 class="text-xl font-semibold text-amber-200">ขั้นตอนที่ 3</h3>
+                    </div>
+                    <p class="text-center text-emerald-100">
+                        ขายชีวาชาร์และคาร์บอนเครดิตสร้างรายได้เสริมให้เกษตรกร
+                    </p>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <button onclick="scrollToCalculator()" class="bg-amber-500 hover:bg-amber-600 text-gray-900 font-semibold px-8 py-4 rounded-xl shadow-lg hover-lift transition-all">
+                    เริ่มคำนวณรายได้
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Biomass Calculator Section -->
+    <section id="calculator" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                    เครื่องคำนวณชีวาชาร์
+                </h2>
+                <p class="text-lg text-gray-600">
+                    คำนวณปริมาณชีวาชาร์และมูลค่าที่คาดการณ์ได้
+                </p>
+            </div>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-gray-50 rounded-xl p-8 mb-8">
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                ประเภทวัสดุ
+                            </label>
+                            <select id="materialType" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500">
+                                <option value="rice-husk">แกลบ</option>
+                                <option value="corn-cob">ซังข้าวโพด</option>
+                                <option value="bamboo">ไม้ไผ่</option>
+                                <option value="fruit-branch">กิ่งไม้ผล</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                ปริมาณ (ตัน)
+                            </label>
+                            <input type="number" id="biomassAmount" min="0" step="0.1" placeholder="กรอกปริมาณ"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500">
+                        </div>
+                    </div>
+                    
+                    <button onclick="calculateBiochar()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-4 rounded-xl shadow-lg hover-lift transition-all">
+                        คำนวณผลลัพธ์
+                    </button>
+                </div>
+                
+                <!-- Results Section -->
+                <div id="results" class="hidden">
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-6 text-center hover-lift">
+                            <div class="text-3xl mb-2">⚫</div>
+                            <h3 class="text-lg font-semibold text-emerald-800 mb-2">ชีวาชาร์</h3>
+                            <div id="biocharYield" class="text-2xl font-bold text-emerald-600 animate-count-up">0</div>
+                            <div class="text-sm text-emerald-600">กิโลกรัม</div>
+                        </div>
+                        
+                        <div class="bg-blue-50 border border-blue-200 rounded-xl p-6 text-center hover-lift">
+                            <div class="text-3xl mb-2">🌍</div>
+                            <h3 class="text-lg font-semibold text-blue-800 mb-2">คาร์บอนเครดิต</h3>
+                            <div id="carbonCredit" class="text-2xl font-bold text-blue-600 animate-count-up">0</div>
+                            <div class="text-sm text-blue-600">ตัน CO₂</div>
+                        </div>
+                        
+                        <div class="bg-amber-50 border border-amber-200 rounded-xl p-6 text-center hover-lift">
+                            <div class="text-3xl mb-2">💵</div>
+                            <h3 class="text-lg font-semibold text-amber-800 mb-2">มูลค่าโดยประมาณ</h3>
+                            <div id="estimatedValue" class="text-2xl font-bold text-amber-600 animate-count-up">0</div>
+                            <div class="text-sm text-amber-600">บาท</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MRV System Section -->
+    <section id="mrv" class="py-20 bg-gray-900 text-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                    ระบบ MRV (Monitoring, Reporting, Verification)
+                </h2>
+                <p class="text-lg text-gray-300">
+                    ตรวจสอบและยืนยันข้อมูลการผลิตชีวาชาร์
+                </p>
+            </div>
+            
+            <div class="max-w-2xl mx-auto">
+                <div class="bg-gray-800 rounded-xl p-8">
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-300 mb-2">
+                            วันที่และเวลา
+                        </label>
+                        <div id="currentDateTime" class="text-lg font-mono bg-gray-700 px-4 py-3 rounded-lg">
+                            กำลังโหลด...
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-300 mb-2">
+                            อุณหภูมิเตา (°C)
+                        </label>
+                        <input type="number" id="furnaceTemp" min="0" max="1000" placeholder="กรอกอุณหภูมิ"
+                            class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500">
+                    </div>
+                    
+                    <div class="mb-6">
+                        <button onclick="getGPSLocation()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 rounded-lg flex items-center justify-center gap-2 hover-lift transition-all">
+                            <span id="gpsButtonIcon">📍</span>
+                            <span id="gpsButtonText">ตรวจสอบตำแหน่ง GPS</span>
+                            <div id="gpsLoading" class="loading-spinner hidden"></div>
+                        </button>
+                    </div>
+                    
+                    <div id="verificationStatus" class="hidden">
+                        <div class="bg-emerald-900 border border-emerald-700 rounded-lg p-4">
+                            <div class="flex items-center gap-2 mb-2">
+                                <div class="text-emerald-400">✅</div>
+                                <span class="font-semibold text-emerald-400">ยืนยันสำเร็จ</span>
+                            </div>
+                            <div class="text-sm text-gray-300 mb-2">
+                                <strong>Block Hash:</strong>
+                                <div id="blockHash" class="font-mono text-xs bg-gray-800 px-2 py-1 rounded mt-1 break-all"></div>
+                            </div>
+                            <div class="text-sm text-gray-300">
+                                <strong>ตำแหน่ง:</strong>
+                                <div id="locationDisplay" class="mt-1"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4 text-center">
+            <h3 class="text-2xl font-bold mb-4">ร่วมเป็นส่วนหนึ่งของชุมชน</h3>
+            <p class="text-gray-300 mb-8">
+                เข้าร่วมกลุ่ม Facebook "มาแลกต้นไม้กัน" เพื่อแลกเปลี่ยนความรู้และประสบการณ์
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+                <a href="https://www.facebook.com/groups/exchangewithtree" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-xl flex items-center justify-center gap-2 hover-lift transition-all">
+                    <span>📘</span>
+                    เข้าร่วมกลุ่ม Facebook
+                </a>
+                <a href="https://github.com/yourusername" target="_blank" class="bg-gray-700 hover:bg-gray-600 text-white font-semibold px-8 py-3 rounded-xl flex items-center justify-center gap-2 hover-lift transition-all">
+                    <span>💻</span>
+                    พัฒนาโดย
+                </a>
+            </div>
+            
+            <div class="text-sm text-gray-400">
+                <p>© 2024 Biochar Thailand 101 - สร้างรายได้จากวัสดุเหลือใช้</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Utility functions
+        function scrollToCalculator() {
+            document.getElementById('calculator').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function animateValue(element, start, end, duration) {
+            const startTime = performance.now();
+            const difference = end - start;
+            
+            function updateValue(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                // Easing function for smooth animation
+                const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+                const currentValue = start + (difference * easeOutQuart);
+                
+                element.textContent = Math.round(currentValue).toLocaleString();
+                
+                if (progress < 1) {
+                    requestAnimationFrame(updateValue);
+                }
+            }
+            
+            requestAnimationFrame(updateValue);
+        }
+        
+        // Biomass Calculator
+        function calculateBiochar() {
+            const materialType = document.getElementById('materialType').value;
+            const biomassAmount = parseFloat(document.getElementById('biomassAmount').value);
+            
+            if (!biomassAmount || biomassAmount <= 0) {
+                alert('กรุณากรอกปริมาณวัสดุที่ถูกต้อง');
+                return;
+            }
+            
+            // Calculate results
+            const biocharYield = biomassAmount * 0.30 * 1000; // 30% yield, convert to kg
+            const carbonCredit = biomassAmount * 0.30 * 2.8; // 2.8 tons CO2 per ton biochar
+            const estimatedValue = (biocharYield * 5) + (carbonCredit * 3000); // Biochar: 5 THB/kg, Carbon: 3000 THB/ton
+            
+            // Show results section
+            document.getElementById('results').classList.remove('hidden');
+            document.getElementById('results').classList.add('fade-in');
+            
+            // Animate values
+            setTimeout(() => {
+                animateValue(document.getElementById('biocharYield'), 0, biocharYield, 1500);
+                animateValue(document.getElementById('carbonCredit'), 0, carbonCredit, 1500);
+                animateValue(document.getElementById('estimatedValue'), 0, estimatedValue, 1500);
+            }, 100);
+        }
+        
+        // MRV System
+        function updateDateTime() {
+            const now = new Date();
+            const options = {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                timeZone: 'Asia/Bangkok'
+            };
+            
+            document.getElementById('currentDateTime').textContent = now.toLocaleDateString('th-TH', options);
+        }
+        
+        function generateMockHash() {
+            const chars = 'ABCDEF0123456789';
+            let hash = '';
+            for (let i = 0; i < 64; i++) {
+                hash += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return '0x' + hash;
+        }
+        
+        function getGPSLocation() {
+            const button = document.getElementById('gpsButtonText');
+            const icon = document.getElementById('gpsButtonIcon');
+            const loading = document.getElementById('gpsLoading');
+            
+            // Show loading state
+            button.textContent = 'กำลังตรวจสอบ...';
+            icon.classList.add('hidden');
+            loading.classList.remove('hidden');
+            
+            if (!navigator.geolocation) {
+                alert('เบราว์เซอร์ของคุณไม่รองรับ GPS');
+                resetGPSButton();
+                return;
+            }
+            
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const latitude = position.coords.latitude.toFixed(6);
+                    const longitude = position.coords.longitude.toFixed(6);
+                    const mockHash = generateMockHash();
+                    
+                    // Display verification status
+                    document.getElementById('verificationStatus').classList.remove('hidden');
+                    document.getElementById('verificationStatus').classList.add('fade-in');
+                    document.getElementById('blockHash').textContent = mockHash;
+                    document.getElementById('locationDisplay').textContent = 
+                        `ละติจูด: ${latitude}, ลองจิจูด: ${longitude}`;
+                    
+                    resetGPSButton();
+                },
+                (error) => {
+                    let errorMessage = 'ไม่สามารถรับตำแหน่ง GPS ได้';
+                    
+                    switch (error.code) {
+                        case error.PERMISSION_DENIED:
+                            errorMessage = 'ผู้ใช้ปฏิเสธการเข้าถึงตำแหน่ง';
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            errorMessage = 'ไม่สามารถระบุตำแหน่งได้';
+                            break;
+                        case error.TIMEOUT:
+                            errorMessage = 'หมดเวลาในการรับตำแหน่ง';
+                            break;
+                    }
+                    
+                    alert(errorMessage);
+                    resetGPSButton();
+                },
+                {
+                    enableHighAccuracy: true,
+                    timeout: 10000,
+                    maximumAge: 300000
+                }
+            );
+        }
+        
+        function resetGPSButton() {
+            document.getElementById('gpsButtonText').textContent = 'ตรวจสอบตำแหน่ง GPS';
+            document.getElementById('gpsButtonIcon').classList.remove('hidden');
+            document.getElementById('gpsLoading').classList.add('hidden');
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateDateTime();
+            setInterval(updateDateTime, 1000);
+        });
+        
+        // Smooth scrolling for better UX
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
